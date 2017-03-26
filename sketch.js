@@ -50,7 +50,7 @@ function setup() {
    /*instrument*/
   delay = new p5.Delay();
   osc = new p5.Oscillator(); //Setup the sound Oscillator
-  osc.setType('triangle'); //Other waveforms include 'saw', 'square', sine
+  osc.setType('saw'); //Other waveforms include 'saw', 'square', sine
   osc.freq(240);
   osc.amp(0.0);
   osc.start();
@@ -58,7 +58,7 @@ function setup() {
   delay.process(osc, 1 / (60 / 5), .3, 2300);
   delay.setType(1);
   reverb = new p5.Reverb();
-  reverb.process(osc, 3, 2);
+  reverb.process(osc, 3, 0.7);
   
   /*sound*/
   /*perc = loadSound('assets/lucky_dragons_-_power_melody.mp3');*/
@@ -123,5 +123,9 @@ function draw() {
      /*instrument*/
     var freq = midiToFreq(notes[round(map(deg,0,360,0,notes.length))]+0.3*random(-mouseX/width,mouseX/width));
     osc.freq(freq);
-   osc.amp(map((speed),0,5,0,notes.length));
+  
+    var amp =map(speed,0,10,0,0.1) ;
+    osc.amp(amp);
+
+
 }
